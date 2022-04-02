@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
 import News from './Components/News'
-export class Entertainment extends Component {
-  render() {
-    return (
+const Entertainment =()=> {
+   return (
       <News category={'entertainment'}/>
     )
   }
-}
 
 export default Entertainment

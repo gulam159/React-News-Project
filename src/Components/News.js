@@ -1,76 +1,63 @@
-// import { Pagination } from '@mui/material';
-import { Pagination } from './Pagination';
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import NewsArticles from './NewsArticles'
-// import {Link} from 'react-router-dom'
 
-export class News extends Component {
-    // articles =[]
-    constructor() {
-        super();
-        this.state = {
-            articles: [],
-            loading: false
-        }
-    }
-    async componentDidMount(props) {
-        let url = `https://saurav.tech/NewsAPI/top-headlines/category/${this.props.category}/in.json`
+const News = (props) => {
+    const [articles, setArticles] = useState([]);
+    const [loading, setLoading] = useState('');
 
-        // let url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=1d8f5fc8e73147b48bcc1198b10e183f';
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const updateNews = async () => {
+        let url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
         let data = await fetch(url);
         let parsedData = await data.json();
-        this.setState({ articles: parsedData.articles })
-        // console.log(parsedData.articles);
+        setArticles(parsedData.articles);
+        console.log(parsedData);
+        setLoading('Loading Latest News');
     }
 
-    render() {
-        return (
-            <>
+    useEffect(() => {
+        updateNews();
+    }, [])
 
-                <div className="container my-3">
-                    <h2 className='text-center my-4 mb-4'>Top Headlines of the Day</h2>
-                    <div className="row my-3" >
-                        {this.state.articles.map((element, idx) => {
-                            if (idx < 18) {
-                                return (
+    const handlePrev = () => {
+        if (pageNumber === 1) {
+            return
+        } else {
+            setPageNumber(pageNumber - 1);
+        }
+    }
 
-                                    <div className="col-md-4" key={element.url}>
-                                        <NewsArticles title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} />
-                                    </div>
-                                )
-                            }
-                            {/* else if(idx>12 && idx<24){
-                            return(
-                            
-                            <div className="col-md-4" key= {element.url}>
-                                <NewsArticles  title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} />
-                            </div>
-                            )
-                        } */}
-                        })}
-                        {/* <div className="container mt-5">
-                            <nav aria-label="Page navigation example">
-                                <ul className="pagination justify-content-center">
-                                    <li className="page-item disabled">
-                                        <a className="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li className="page-item"><Link className="page-link" to="/" >1</Link></li>
-                                    <li className="page-item"><a className="page-link" href="#" >2</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div> */}
-                        {/* <Pagination next='idx'/> */}
+    const handleNext = () => {
+        if(pageNumber*8>=articles.length){
+            return;
+        }
+        setPageNumber(pageNumber + 1)
+    }
+
+    return (
+        <>
+            <div className="container my-3">
+                <h2 className='text-center my-4 mb-4'>Top Headlines of the Day</h2>
+                <div className="row my-3" >
+                    {loading ? articles.map((element, index) => {
+                        
+                        return (
+                            index>=(pageNumber-1)*9 && index<pageNumber*9?    
+                            <div className="col-md-4" key={element.url}>
+                                <NewsArticles title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} />
+                            </div>:null
+                        )
+                    }): <h6 className='text-center'>Your Latest News is Loading</h6>}
+
+                    <div className='d-flex justify-content-between my-4'>
+                        <button disabled={pageNumber<=1} type="button" className="btn btn-primary" onClick={handlePrev}>Previous</button>
+                        <button type="button" disabled className="btn btn-outline-secondary">Page {pageNumber} </button>
+                        <button disabled={pageNumber*9>=articles.length} type="button" className="btn btn-primary" onClick={handleNext}>Next</button>
                     </div>
-
                 </div>
-
-            </>
-        )
-    }
+            </div>
+        </>
+    )
 }
-
 export default News

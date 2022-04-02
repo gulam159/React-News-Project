@@ -1,13 +1,10 @@
-import React, { Component } from 'react'
 import News from './Components/News'
 
-export class Business extends Component {
-  render() {
+const Business =()=> {
     return (<>
       <News category={'business'}/>
       </>
     )
   }
-}
 
 export default Business

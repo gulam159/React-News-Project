@@ -1,7 +1,5 @@
 import './App.css';
-import React, { Component } from 'react'
 import Navbar from './Components/Navbar';
-// import News from './Components/News';
 import {Routes, Route} from 'react-router-dom'
 import Technology from './Technology';
 import Sports from './Sports';
@@ -10,9 +8,7 @@ import Entertainment from './Entertainment';
 import Health from './Health';
 import Mynews from './Mynews';
 
-export class App extends Component {
-  render() {
-    // let url = `https://saurav.tech/NewsAPI/top-headlines/category/${general}/in.json`
+const App =()=> {
     return (
      <>
        <Navbar/>
@@ -28,6 +24,4 @@ export class App extends Component {
      </>
     )
   }
-}
-
 export default App
