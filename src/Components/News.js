@@ -8,8 +8,8 @@ const News = (props) => {
     const [pageNumber, setPageNumber] = useState(1)
 
     const updateNews = async () => {
-        // let url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
-        let url = `https://saurav.tech/NewsAPI/everything/bbc-news.json`;
+        let url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
+        // let url = `https://saurav.tech/NewsAPI/everything/bbc-news.json`;
         let data = await fetch(url);
         let parsedData = await data.json();
         setArticles(parsedData.articles);
