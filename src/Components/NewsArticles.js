@@ -1,22 +1,18 @@
-const NewsArticles =(props)=> {
+const NewsArticles = (props) => {
 
-        let {title, description, imageUrl, newsUrl} = props;
-        return (
-            <>
-                <div className="card">
-<<<<<<< HEAD
-                    <img src={imageUrl} className="card-img-top" alt="Image Not Available" />
-=======
-                    <img src={imageUrl} className="card-img-top" alt="..." />
->>>>>>> 0ba4db51e770c57436862dd963682a15a2be484b
-                    <div className="card-body">
-                        <h5 className="card-title">{title}</h5>
-                        <p className="card-text">{description}</p>
-                        <a href={newsUrl} target='_blank' className="btn btn-sm btn-secondary" onClick={()=> alert('You will be redirected to a new page')}>Read Full Article</a>
-                    </div>
+    let { title, description, imageUrl, newsUrl } = props;
+    return (
+        <>
+            <div className="card">
+                <img src={imageUrl} className="card-img-top" alt="..." />
+                <div className="card-body">
+                    <h5 className="card-title">{title}</h5>
+                    <p className="card-text">{description}</p>
+                    <a href={newsUrl} target='_blank' className="btn btn-sm btn-secondary">Read Full Article</a>
                 </div>
-            </>
-        )
-    }
+            </div>
+        </>
+    )
+}
 
 export default NewsArticles

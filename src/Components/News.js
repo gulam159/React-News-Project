@@ -8,11 +8,12 @@ const News = (props) => {
     const [pageNumber, setPageNumber] = useState(1)
 
     const updateNews = async () => {
-        let url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
+        // let url = `https://saurav.tech/NewsAPI/top-headlines/category/${props.category}/in.json`
+        let url = `https://saurav.tech/NewsAPI/everything/bbc-news.json`;
         let data = await fetch(url);
         let parsedData = await data.json();
         setArticles(parsedData.articles);
-        console.log(parsedData);
+        // console.log(parsedData);
         setLoading('Loading Latest News');
     }
 
@@ -48,7 +49,7 @@ const News = (props) => {
                                 <NewsArticles title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} />
                             </div>:null
                         )
-                    }): <h6 className='text-center'>Your Latest News is Loading</h6>}
+                    }): <h6 className='text-center'>Your Latest News is Loading...</h6>}
 
                     <div className='d-flex justify-content-between my-4'>
                         <button disabled={pageNumber<=1} type="button" className="btn btn-primary" onClick={handlePrev}>Previous</button>
